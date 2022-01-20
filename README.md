@@ -1,5 +1,7 @@
-### Hi there 👋
+<h1> Hi there! I'm Gagan👋</h1>
 
+
+![](https://komarev.com/ghpvc/?username=igagankalra)
 <!--
 **igagankalra/igagankalra** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
