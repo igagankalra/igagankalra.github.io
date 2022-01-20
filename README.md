@@ -2,6 +2,9 @@
 
 
 ![](https://komarev.com/ghpvc/?username=igagankalra)
+[![Twitter Follow](https://img.shields.io/twitter/follow/igagankalra?style=social)](https://twitter.com/igagankalra)
+
+I'm Currently a Senior Software Engineer at Globallogic. 
 <!--
 **igagankalra/igagankalra** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
