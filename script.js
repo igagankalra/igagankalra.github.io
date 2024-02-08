@@ -50,13 +50,13 @@ no_button.addEventListener('click', () => {
 });
 
 yes_button.addEventListener('click', () => {
-    // change banner gif path
+    // Change banner source
     let banner = document.getElementById('banner');
-    banner.src = "images/y.gif";
-    // hide buttons div
-    let buttons = document.getElementsByClassName('buttons')[0];
-    buttons.style.display = "none";
-    // show message div
-    let message = document.getElementsByClassName('message')[0];
-    message.style.display = "block";
+    banner.src = "images/yes.gif";
+
+    // Change images after 2 seconds
+    setTimeout(() => {
+        document.getElementById('image1').src = "images/yes.gif";
+        document.getElementById('image2').src = "images/yes2.gif";
+    }, 2000);
 });
