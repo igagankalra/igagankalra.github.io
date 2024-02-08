@@ -33,11 +33,11 @@ no_button.addEventListener('click', () => {
     yes_button.style.height = `${size}px`;
     yes_button.style.width = `${size}px`;
     let total = answers.length;
-    // change button text
+    // handle button text
     if (i < total - 1) {
         no_button.innerHTML = answers[i];
         i++;
-    } else if (i === total - 1) {
+    } else {
         // Display "Ok, Lets just start over.." inside red button
         no_button.innerHTML = answers[i];
         // Reset i and clicks when reaching the end of answers
