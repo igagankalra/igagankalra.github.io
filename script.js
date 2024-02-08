@@ -37,13 +37,11 @@ no_button.addEventListener('click', () => {
     if (i < total - 1) {
         no_button.innerHTML = answers[i];
         i++;
-    } else if (i === total - 1) {
-        alert(answers[i]);
+    } else {
+        // Reset i and clicks when reaching the end of answers
         i = 0;
-        no_button.innerHTML = "No";
-        yes_button.style.height = "50px";
-        yes_button.style.width = "50px";
-        size = 50;
+        clicks = 0;
+        no_button.innerHTML = answers[i];
     }
 });
 
