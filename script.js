@@ -37,11 +37,15 @@ no_button.addEventListener('click', () => {
     if (i < total - 1) {
         no_button.innerHTML = answers[i];
         i++;
-    } else {
+    } else if (i === total - 1) {
+        // Display "Ok, Lets just start over.." inside red button
+        no_button.innerHTML = answers[i];
         // Reset i and clicks when reaching the end of answers
         i = 0;
         clicks = 0;
-        no_button.innerHTML = answers[i];
+        setTimeout(() => {
+            no_button.innerHTML = "No";
+        }, 2000); // Reset button text after 2 seconds
     }
 });
 
