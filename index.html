@@ -1,27 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Will you be my valentine?</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="banner-gif">
-        <img id="banner" src="images/mid.gif" alt="banner" />
-      </div>
-      <h1>Will you be my valentine, Sal?</h1>
-      <div class="buttons">
-        <button id="yes-button"><p>Yes</p></button>
-        <button id="no-button"><p>No</p></button>
-      </div>
-      <div class="message">
-        <h2>Yepppie, see youuuu on 14th for our lunch date &#x2665;</h2>
-        <!-- <h4>Insta: @igagankalra</h4> -->
-        <!-- <h6>Creator: @igagankalra</h6> -->
-      </div>
-    </div>
-    <script src="script.js"></script>
-  </body>
+<html>
+<body>
+  <h1>SSE Client</h1>
+  <ul id="messages"></ul>
+  <script>
+    const evtSource = new EventSource('http://localhost:3000/events');
+    evtSource.onmessage = function(event) {
+      const li = document.createElement('li');
+      li.textContent = event.data;
+      document.getElementById('messages').appendChild(li);
+    };
+  </script>
+</body>
 </html>
