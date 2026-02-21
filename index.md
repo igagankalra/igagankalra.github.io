@@ -1,3 +1,11 @@
+---
+layout: default
+title: Gagandeep Singh Kalra | Fullstack Product Engineer & Go Developer
+description: Portfolio of Gagandeep Singh Kalra, a Software Engineer based in India specializing in Go (Golang), Next.js, AWS, GCP, Azure, and DevOps.
+keywords: Gagandeep Singh Kalra, Go Developer, Golang, Next.js, Fullstack Engineer, DevOps, AWS, Delhi, India, Freelance Software Engineer, Gagan Kalra, AI leader, python
+author: Gagandeep Singh Kalra
+---
+
 <h1 align="center">Hi there, I'm Gagandeep Singh Kalra 👋</h1>
 <h3 align="center">Fullstack Product Engineer | Go Developer, Next.js, Cloud & DevOps</h3>
 <p align="center">
