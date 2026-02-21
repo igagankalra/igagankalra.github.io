@@ -1,8 +1,8 @@
 <h1 align="center">Hi there, I'm Gagandeep Singh Kalra 👋</h1>
-<h3 align="center">Software Engineer | Cloud, Go & Full-Stack Developer</h3>
+<h3 align="center">Fullstack Product Engineer | Go Developer, Next.js, Cloud & DevOps</h3>
 <p align="center">
   <a href="https://www.linkedin.com/in/igagankalra/">LinkedIn</a> •
-  [cite_start]<a href="https://github.com/igagankalra">GitHub</a> [cite: 1] •
+  <a href="https://github.com/igagankalra">GitHub</a> •
   [cite_start]<a href="mailto:gagan.logic@gmail.com">gagan.logic@gmail.com</a> [cite: 1]
 </p>
 
@@ -10,18 +10,19 @@
 
 ## 👨‍💻 About Me
 
-[cite_start]I am a results-driven Software Engineer with 4+ years of experience specializing in Go (Golang) development, cloud platforms, and DevOps practices. [cite_start]My core expertise lies in backend architecture, microservices, serverless solutions, and automation[cite: 3]. 
+[cite_start]I am a results-driven Software Engineer with 4+ years of experience specializing in Go (Golang) development, cloud platforms, and DevOps practices[cite: 2]. [cite_start]My core expertise lies in backend architecture, microservices, serverless solutions, and automation[cite: 3]. 
 
 [cite_start]Beyond the backend, I actively build full-stack applications leveraging Next.js and Vercel, and I have deep, hands-on experience orchestrating Kubernetes clusters across all three major cloud providers (AWS, GCP, and Azure)[cite: 7, 9]. Recently, I have also been leveraging AI tools to accelerate development workflows, upskill teams, and ship impactful projects faster.
 
 ## 🛠️ Tech Stack
 
 * [cite_start]**Programming Languages:** Go (Golang), Python, Java, Shell Scripting, SQL[cite: 6].
-* [cite_start]**Cloud Platforms:** AWS, GCP, Azure[cite: 7].
+* [cite_start]**Cloud Platforms:** AWS (Lambda, EC2, S3, API Gateway), GCP, Azure[cite: 7].
 * [cite_start]**DevOps & Automation:** Docker, Kubernetes, Terraform, Jenkins, GitLab CI/CD, Bazel[cite: 9].
 * **Frontend & Edge Deployment:** Next.js, Vercel, TypeScript.
-* [cite_start]**Backend Frameworks:** Fiber, mux, Gorilla, GraphQL, gRPC[cite: 8].
+* [cite_start]**Backend Frameworks:** Fiber, mux, Gorilla, GraphQL, gRPC, HTTP, AppSync[cite: 8].
 * [cite_start]**Databases & Messaging:** PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch [cite: 10][cite_start], Kafka, RabbitMQ[cite: 11].
+* [cite_start]**Monitoring & Observability:** Grafana, Kibana, Datadog[cite: 12].
 
 ---
 
