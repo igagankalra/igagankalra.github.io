@@ -1,2 +1,8 @@
 title: Gagandeep Singh Kalra
 description: Fullstack Product Engineer | Go Developer, Next.js, Cloud & DevOps
+url: "https://igagankalra.github.io"
+
+# These plugins are officially supported and will not break your build!
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
