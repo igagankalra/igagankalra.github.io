@@ -1,3 +1,8 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hack/0.8.1/hack.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hack/0.8.1/dark.css">
+
+<div class="container hack dark">
+
 # Gagandeep Singh Kalra
 **Software Engineer | Cloud, Go & Full-Stack Developer**
 
@@ -60,3 +65,5 @@
 * [cite_start]**Bachelor of Technology (IT)**, DAV Institute of Engineering & Technology *(2015 – 2019)* [cite: 51]
 * [cite_start]**Cloud Native Application Architecture Nanodegree**, Udacity [cite: 54]
 * [cite_start]**Google Cloud Associate Cloud Engineer** [cite: 55]
+
+</div>
