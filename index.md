@@ -3,7 +3,8 @@
 <p align="center">
   <a href="https://www.linkedin.com/in/igagankalra/">LinkedIn</a> •
   <a href="https://github.com/igagankalra">GitHub</a> •
-  [cite_start]<a href="mailto:gagan.logic@gmail.com">gagan.logic@gmail.com</a> [cite: 1]
+  <a href="mailto:gagan.logic@gmail.com">gagan.logic@gmail.com</a> •
+  <a href="tel:+918360420520">+91 83604 20520</a>
 </p>
 
 ---
