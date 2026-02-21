@@ -12,7 +12,7 @@
 
 ## 👨‍💻 About Me
 
-[cite_start]I am a results-driven Software Engineer with over 4 years of experience specializing in Go (Golang), cloud platforms, and DevOps practices[cite: 2]. [cite_start]My core expertise lies in building highly scalable backend architectures, microservices, and serverless solutions[cite: 3]. 
+[cite_start]I am a results-driven Software Engineer with over 7 years of experience specializing in Go (Golang), cloud platforms, python, vercel, next.js and DevOps practices[cite: 2]. [cite_start]My core expertise lies in building highly scalable backend architectures, microservices, and serverless solutions[cite: 3]. 
 
 [cite_start]Beyond the backend, I actively build full-stack applications leveraging Next.js and Vercel, and I have deep, hands-on experience orchestrating Kubernetes clusters across all three major cloud providers (AWS, GCP, and Azure)[cite: 7, 9]. Recently, I have also been leveraging AI tools to accelerate development workflows, upskill teams, and ship impactful projects faster.
 
@@ -20,7 +20,7 @@
 
 * [cite_start]**Programming Languages:** Go (Golang), Python, Java, Shell Scripting, SQL[cite: 6].
 * [cite_start]**Cloud & DevOps:** AWS, GCP, Azure [cite: 7][cite_start], Kubernetes, Docker, Terraform, Jenkins, GitLab CI/CD, Bazel[cite: 9].
-* **Frontend & Edge Deployment:** Next.js, Vercel.
+* **Frontend & Edge Deployment:** Next.js, Vercel, vo.app, Ts.
 * [cite_start]**Backend Frameworks:** Fiber, mux, Gorilla, GraphQL, gRPC[cite: 8].
 * [cite_start]**Databases & Event Streaming:** PostgreSQL, MongoDB, Redis, Elasticsearch [cite: 10][cite_start], Kafka, RabbitMQ[cite: 11].
 * [cite_start]**Monitoring & Observability:** Grafana, Kibana, Datadog[cite: 12].
