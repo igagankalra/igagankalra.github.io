@@ -448,6 +448,25 @@ p:last-child {
   flex-shrink: 0;
 }
 
+.skills-inline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.skills-inline dt {
+  font-weight: 600;
+  color: var(--c-text-main);
+  white-space: nowrap;
+}
+
+.skills-inline dd {
+  color: var(--c-text-light);
+  margin: 0;
+}
+
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
