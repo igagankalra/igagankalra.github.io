@@ -6,17 +6,17 @@ keywords: Gagandeep Singh Kalra, Senior Software Engineer, Go, Golang, Python, T
 author: Gagandeep Singh Kalra
 ---
 
-# Gagandeep Singh Kalra
-
-**Senior Software Engineer | Go, Python, TypeScript**
-
-Jalandhar, India (Remote) &middot; [gagan.logic@gmail.com](mailto:gagan.logic@gmail.com) &middot; [+91 83604 20520](tel:+918360420520)
-
-[LinkedIn](https://www.linkedin.com/in/igagankalra/) &middot; [GitHub](https://github.com/igagankalra)
+<h1 align="center">Hi there, I'm Gagandeep Singh Kalra 👋</h1>
+<h3 align="center">Senior Software Engineer | Go, Python, TypeScript</h3>
+<p align="center">
+  Jalandhar, India (Remote)<br/>
+  <a href="mailto:gagan.logic@gmail.com">gagan.logic@gmail.com</a> &middot;
+  <a href="tel:+918360420520">+91 83604 20520</a><br/>
+  <a href="https://www.linkedin.com/in/igagankalra/">LinkedIn</a> &middot;
+  <a href="https://github.com/igagankalra">GitHub</a>
+</p>
 
 ---
-
-## Professional Summary
 
 Senior Software Engineer with 7 years designing event-driven microservices and cloud-native platforms in Go, Python, and TypeScript. Re-architected Gartner's CRM across 21 microservices and 49+ Lambdas, then built G2's Forge — an AI agent platform that automates the full Jira-to-deployment lifecycle for engineering teams.
 
