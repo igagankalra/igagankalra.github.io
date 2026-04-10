@@ -325,25 +325,46 @@ p:last-child {
 }
 
 /* ==========================================================================
-   About / Hero
+   About
    ========================================================================== */
 
-.hero {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-xl);
-  align-items: start;
-  margin-bottom: var(--space-lg);
+.about {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-3xl);
 }
 
-.hero-text {
-  font-size: 1.075rem;
+.about h4 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--c-text-main);
+}
+
+.about p {
+  font-size: 1.05rem;
   color: var(--c-text-light);
   line-height: 1.75;
 }
 
-.hero-text p {
-  margin-bottom: 1.25rem;
+.about-contact {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+  margin-top: var(--space-sm);
+}
+
+.about-contact a {
+  color: var(--c-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+
+.about-contact a:hover {
+  text-decoration-color: var(--c-primary);
 }
 
 .hero-image {
