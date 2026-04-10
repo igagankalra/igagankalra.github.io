@@ -892,7 +892,9 @@ p:last-child {
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem;
-  margin-top: var(--space-xs);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--c-border);
 }
 
 .article-tag {
