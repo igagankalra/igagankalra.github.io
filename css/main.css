@@ -796,21 +796,150 @@ p:last-child {
 }
 
 /* ==========================================================================
-   Blog Placeholder
+   Blog List
    ========================================================================== */
 
-.blog-placeholder {
-  padding: var(--space-3xl) 0;
-  text-align: center;
+.blog-list {
+  display: grid;
+  gap: 0;
 }
 
-.blog-placeholder p {
-  font-size: 1.1rem;
+.blog-list-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.blog-list-item:first-child {
+  padding-top: 0;
+}
+
+.blog-list-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.blog-list-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: var(--space-2xs);
+}
+
+.blog-list-title a {
+  color: var(--c-text-main);
+  transition: color var(--duration-fast) ease;
+}
+
+.blog-list-title a:hover {
+  color: var(--c-primary);
+}
+
+.blog-list-date {
+  font-size: 0.85rem;
+  color: var(--c-text-muted);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+
+.blog-list-desc {
+  font-size: 0.95rem;
   color: var(--c-text-light);
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
-.blog-placeholder a {
+/* ==========================================================================
+   Blog Article
+   ========================================================================== */
+
+.article {
+  max-width: 100%;
+}
+
+.article-header {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.article-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-sm);
+  font-size: 0.875rem;
+  color: var(--c-text-muted);
+}
+
+.article-date {
+  font-weight: 500;
+}
+
+.article-author {
+  color: var(--c-text-light);
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: var(--space-xs);
+}
+
+.article-tag {
+  display: inline-block;
+  padding: 0.175rem 0.55rem;
+  background: var(--c-tag-bg);
+  color: var(--c-tag-text);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* --- Article Body --- */
+
+.article h2 {
+  font-size: 1.55rem;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.article h3 {
+  font-size: 1.2rem;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.article p {
+  font-size: 1.025rem;
+  color: var(--c-text-light);
+  line-height: 1.8;
+  margin-bottom: var(--space-sm);
+}
+
+.article p:last-child {
+  margin-bottom: 0;
+}
+
+.article strong {
+  color: var(--c-text-main);
+  font-weight: 600;
+}
+
+.article a {
   color: var(--c-primary);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -819,8 +948,189 @@ p:last-child {
   transition: text-decoration-color var(--duration-fast) ease;
 }
 
-.blog-placeholder a:hover {
+.article a:hover {
   text-decoration-color: var(--c-primary);
+}
+
+/* --- Lists --- */
+
+.article ul,
+.article ol {
+  margin-bottom: var(--space-sm);
+  padding-left: var(--space-md);
+}
+
+.article ul {
+  list-style: none;
+}
+
+.article ul li {
+  position: relative;
+  padding-left: var(--space-sm);
+  margin-bottom: 0.4rem;
+  font-size: 1.025rem;
+  color: var(--c-text-light);
+  line-height: 1.7;
+}
+
+.article ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  opacity: 0.6;
+}
+
+.article ol {
+  list-style: decimal;
+}
+
+.article ol li {
+  margin-bottom: 0.4rem;
+  font-size: 1.025rem;
+  color: var(--c-text-light);
+  line-height: 1.7;
+  padding-left: var(--space-2xs);
+}
+
+.article ol li::marker {
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+/* --- Code --- */
+
+.article code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--c-code-bg);
+  color: var(--c-text-main);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--c-border);
+  word-break: break-word;
+}
+
+.article pre {
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--c-border);
+  background: var(--c-code-bg);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.article pre code {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.85rem;
+  line-height: 1.65;
+  background: none;
+  border: none;
+  border-radius: 0;
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* --- Tables --- */
+
+.article-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--c-border);
+}
+
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.925rem;
+  line-height: 1.55;
+}
+
+.article th,
+.article td {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+  vertical-align: top;
+}
+
+.article th {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.825rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-text-main);
+  background: var(--c-code-bg);
+  white-space: nowrap;
+}
+
+.article td {
+  color: var(--c-text-light);
+}
+
+.article tr:last-child td {
+  border-bottom: none;
+}
+
+.article td strong {
+  color: var(--c-primary);
+}
+
+/* --- Blockquote --- */
+
+.article blockquote {
+  margin: 0 0 var(--space-sm) 0;
+  padding: var(--space-sm) var(--space-md);
+  border-left: 3px solid var(--c-primary);
+  background: var(--c-primary-light);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.article blockquote p {
+  color: var(--c-text-light);
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+/* --- Article responsive --- */
+
+@media (max-width: 768px) {
+  .article-title {
+    font-size: 1.55rem;
+  }
+
+  .article h2 {
+    font-size: 1.3rem;
+  }
+
+  .article h3 {
+    font-size: 1.1rem;
+  }
+
+  .article p,
+  .article ul li,
+  .article ol li {
+    font-size: 0.975rem;
+  }
+
+  .article pre code {
+    font-size: 0.8rem;
+  }
+
+  .article th,
+  .article td {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.85rem;
+  }
 }
 
 /* ==========================================================================

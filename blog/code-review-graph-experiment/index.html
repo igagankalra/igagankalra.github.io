@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>code-review-graph vs Traditional AI Code Exploration — A 9-Repo Benchmark — Gagan Kalra</title>
+
+  <meta name="description" content="I tested code-review-graph MCP server across 9 production repos (148K nodes, 670K edges) using an agentic AI workflow. Head-to-head comparison on 14 dimensions: token cost, architectural analysis, blast radius, and more.">
+  <meta name="author" content="Gagan Kalra">
+
+  <meta property="og:title" content="code-review-graph vs Traditional AI Code Exploration — A 9-Repo Benchmark">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://igagankalra.github.io/blog/code-review-graph-experiment/">
+  <meta property="og:description" content="I tested code-review-graph MCP server across 9 production repos (148K nodes, 670K edges) using an agentic AI workflow. Head-to-head comparison on 14 dimensions: token cost, architectural analysis, blast radius, and more.">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="code-review-graph vs Traditional AI Code Exploration — A 9-Repo Benchmark">
+  <meta name="twitter:description" content="I tested code-review-graph MCP server across 9 production repos (148K nodes, 670K edges) using an agentic AI workflow.">
+
+  <link rel="canonical" href="https://igagankalra.github.io/blog/code-review-graph-experiment/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/main.css">
+
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+</head>
+<body>
+  <div class="site-wrapper">
+
+    <header class="site-header">
+      <div class="header-main">
+        <div class="brand">
+          <h1><a href="../../index.html">Gagan Kalra</a></h1>
+          <p class="tagline">Building things that work, one microservice at a time.</p>
+        </div>
+
+        <div class="social-links">
+          <ul>
+            <li>
+              <a href="https://github.com/igagankalra" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/igagankalra/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:gagan.logic@gmail.com" aria-label="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </a>
+            </li>
+            <li>
+              <button id="theme-toggle" aria-label="Toggle dark mode">
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../projects/index.html">Projects</a></li>
+        <li><a href="../../about/index.html">About</a></li>
+        <li><a class="active" href="../index.html">Blog</a></li>
+      </ul>
+    </nav>
+
+    <main class="site-content" role="main">
+
+      <article class="article reveal">
+
+        <header class="article-header">
+          <h2 class="article-title">code-review-graph vs Traditional AI Code Exploration &mdash; A 9-Repo Benchmark</h2>
+          <div class="article-meta">
+            <span class="article-date">April 4, 2026</span>
+            <span class="article-author">&middot; Gagan Kalra</span>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">ai-code-review</span>
+            <span class="article-tag">mcp-server</span>
+            <span class="article-tag">code-review-graph</span>
+            <span class="article-tag">ai-coding-tools</span>
+            <span class="article-tag">tree-sitter</span>
+            <span class="article-tag">llm-token-optimization</span>
+            <span class="article-tag">opencode</span>
+            <span class="article-tag">developer-productivity</span>
+            <span class="article-tag">static-analysis</span>
+            <span class="article-tag">agentic-workflow</span>
+          </div>
+        </header>
+
+        <p>There's been a lot of hype about <a href="https://github.com/tirth8205/code-review-graph">code-review-graph</a> &mdash; an open-source MCP server that parses your codebase with Tree-sitter, builds a structural knowledge graph in local SQLite, and exposes 22 tools for AI coding agents. The pitch: point your LLM at exactly the files it needs instead of letting it guess across thousands. Token savings of 6-49x.</p>
+
+        <p>I wanted to know if the hype matched reality. So I tested it across 9 production repos using an agentic OpenCode workflow, and ran a head-to-head comparison against traditional AI code exploration on 14 dimensions. The results surprised me.</p>
+
+        <h2>The Setup</h2>
+
+        <p><strong>Repos tested</strong>: 9 repositories spanning a real multi-repo platform &mdash; a mix of:</p>
+
+        <div class="article-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Repo</th>
+                <th>Language</th>
+                <th>Size</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Go monorepo</td><td>Go</td><td>6,734 files</td><td>Primary backend &mdash; DDD architecture, 20+ domains</td></tr>
+              <tr><td>Next.js frontend</td><td>TypeScript</td><td>733 files</td><td>Customer-facing portal</td></tr>
+              <tr><td>Rails service</td><td>Ruby</td><td>~500 files</td><td>Bid management + Kafka consumers</td></tr>
+              <tr><td>PHP monolith</td><td>PHP</td><td>8,394 files</td><td>Legacy system (deprecating)</td></tr>
+              <tr><td>Video/voice app</td><td>TypeScript</td><td>355 files</td><td>Real-time communication (Turborepo)</td></tr>
+              <tr><td>PHP REST API</td><td>PHP</td><td>885 files</td><td>Product catalog API (Silex)</td></tr>
+              <tr><td>PHP admin API</td><td>PHP</td><td>228 files</td><td>Admin backend (Laravel Lumen)</td></tr>
+              <tr><td>React admin UI</td><td>TypeScript</td><td>454 files</td><td>Admin frontend (React 16, Redux-Saga)</td></tr>
+              <tr><td>Micro-frontend platform</td><td>TypeScript</td><td>465 files</td><td>5 micro-frontends (Turborepo, Next.js)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>After building graphs with post-processing: <strong>148,000 nodes</strong>, <strong>670,000 edges</strong>, <strong>13,786 communities</strong>, <strong>131 execution flows</strong>.</p>
+
+        <p><strong>The comparison</strong>: I ran two approaches against all 9 repos:</p>
+
+        <ol>
+          <li><strong>Explorer method</strong>: 9 parallel AI agents reading source files, configs, READMEs, routes, and schemas &mdash; the way most AI coding tools work today</li>
+          <li><strong>Graph method</strong>: Querying the code-review-graph MCP server for structural data &mdash; communities, flows, architecture health, blast radius</li>
+        </ol>
+
+        <h2>The Bug I Found Before I Could Even Compare</h2>
+
+        <p>First attempt: I built all graphs via CLI (<code>code-review-graph build</code>), started the MCP server, and queried. Communities: 0. Flows: 0. FTS search: 0. Everything empty.</p>
+
+        <p>Turns out, the CLI <code>build</code> command and the MCP <code>build_or_update_graph_tool</code> run completely different pipelines:</p>
+
+        <div class="article-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Post-processing step</th>
+                <th>CLI <code>build</code></th>
+                <th>MCP tool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Tree-sitter parse (nodes + edges)</td><td>&#10003;</td><td>&#10003;</td></tr>
+              <tr><td>Compute signatures</td><td>&#10007;</td><td>&#10003;</td></tr>
+              <tr><td>Rebuild FTS index</td><td>&#10007;</td><td>&#10003;</td></tr>
+              <tr><td>Trace execution flows</td><td>&#10007;</td><td>&#10003;</td></tr>
+              <tr><td>Detect communities</td><td>&#10007;</td><td>&#10003;</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>The CLI only parses files. The MCP tool parses files AND runs 4 post-processing steps that populate the communities, flows, and search tables. Without those steps, most of the interesting tools return nothing.</p>
+
+        <p>This affects the CLI <code>build</code>, <code>update</code>, <code>watch</code> commands, and even the bundled Claude Code hooks (which call CLI <code>update</code>). I wrote a workaround &mdash; a build script that calls the post-processing via Python after each CLI build &mdash; and <a href="https://github.com/tirth8205/code-review-graph/issues/">filed an issue</a>.</p>
+
+        <h2>The Head-to-Head Results</h2>
+
+        <h3>Cost &amp; Speed</h3>
+
+        <div class="article-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Explorer</th>
+                <th>Graph</th>
+                <th>Winner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Total tokens</td><td>1,350,000</td><td>152,000</td><td><strong>Graph (8.9x fewer)</strong></td></tr>
+              <tr><td>API cost</td><td>$11.60</td><td>$7.18</td><td><strong>Graph (1.6x cheaper)</strong></td></tr>
+              <tr><td>Wall clock time</td><td>5m 45s</td><td>3m</td><td><strong>Graph (1.9x faster)</strong></td></tr>
+              <tr><td>Avg tokens per repo</td><td>~104K</td><td>~17K</td><td><strong>Graph (6x fewer)</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Graph is significantly cheaper in tokens. But cheaper doesn't mean better &mdash; it depends on what you get back.</p>
+
+        <h3>The 14-Dimension Scorecard</h3>
+
+        <p>I scored both methods across 14 dimensions on a 0-10 scale:</p>
+
+        <div class="article-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Explorer</th>
+                <th>Graph</th>
+                <th>Gap</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Tech stack &amp; versions</td><td>10</td><td>2</td><td>Explorer +8</td></tr>
+              <tr><td>API surface</td><td>10</td><td>0</td><td>Explorer +10</td></tr>
+              <tr><td>Database schemas</td><td>9</td><td>0</td><td>Explorer +9</td></tr>
+              <tr><td>Messaging (Kafka/SNS)</td><td>9</td><td>0</td><td>Explorer +9</td></tr>
+              <tr><td>External dependencies</td><td>10</td><td>0</td><td>Explorer +10</td></tr>
+              <tr><td>Infrastructure</td><td>9</td><td>0</td><td>Explorer +9</td></tr>
+              <tr><td>Auth flows</td><td>9</td><td>3</td><td>Explorer +6</td></tr>
+              <tr><td>Business logic</td><td>9</td><td>0</td><td>Explorer +9</td></tr>
+              <tr><td>Deprecation awareness</td><td>9</td><td>1</td><td>Explorer +8</td></tr>
+              <tr><td>Code structure</td><td>8</td><td>9</td><td>Graph +1</td></tr>
+              <tr><td>Complexity hotspots</td><td>7</td><td>9</td><td>Graph +2</td></tr>
+              <tr><td>Architectural health</td><td>5</td><td>9</td><td>Graph +4</td></tr>
+              <tr><td>Test coverage map</td><td>6</td><td>8</td><td>Graph +2</td></tr>
+              <tr><td>Execution flow tracing</td><td>0</td><td>8</td><td>Graph +8</td></tr>
+              <tr><td></td><td></td><td></td><td></td></tr>
+              <tr><td><strong>TOTAL</strong></td><td><strong>110/140</strong></td><td><strong>49/140</strong></td><td></td></tr>
+              <tr><td></td><td><strong>78.6%</strong></td><td><strong>35.0%</strong></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Explorer wins 78.6% to 35.0%. Not close.</p>
+
+        <p>But that headline number misses the point. Look at where each method scored 0.</p>
+
+        <h2>What Only the Graph Found</h2>
+
+        <p>These are things no amount of file reading would surface:</p>
+
+        <ul>
+          <li><strong>One frontend had 77 architectural coupling warnings</strong> with a coupling ratio of 8.8 &mdash; by far the most structurally unhealthy repo. The explorer called it &ldquo;well-organized.&rdquo;</li>
+          <li><strong>A React admin UI had a component with criticality score 0.92</strong> &mdash; the single most critical execution flow across all 9 repos. The explorer described it as just another feature.</li>
+          <li><strong>A video call component was 4,295 lines</strong> &mdash; an extreme complexity hotspot that nobody had flagged.</li>
+          <li><strong>The Go monorepo had a coupling ratio of 0.04</strong> &mdash; quantitative proof that its DDD domain architecture was actually working. The explorer described the architecture qualitatively, but couldn&rsquo;t put a number on it.</li>
+          <li><strong>Two deprecated PHP repos had exactly 0 cross-community edges</strong> &mdash; they&rsquo;re structurally dead. Useful data for a decommission decision.</li>
+          <li><strong>131 execution flows</strong> across 8 repos with depth and criticality scores &mdash; entirely invisible to file-reading agents.</li>
+        </ul>
+
+        <h2>What Only the Explorer Found</h2>
+
+        <p>These are things a structural graph will never capture:</p>
+
+        <ul>
+          <li>The Go monorepo has <strong>20 named DDD domains</strong>, each with specific purpose, database assignments, and Kafka roles</li>
+          <li>One service is <strong>mid-migration</strong> &mdash; storage moving from monolith to a new microservice, gated by a feature flag</li>
+          <li>A frontend calls <strong>8 distinct backend services</strong> via Server Actions</li>
+          <li>The legacy monolith runs <strong>5 web servers on ports 80-84</strong> serving different subdomains</li>
+          <li>A PHP API has <strong>6 sub-applications</strong> each on a different port</li>
+          <li>One admin UI bootstraps auth from a <strong>PHP iframe session</strong> &mdash; tokens for 3 APIs</li>
+          <li>A micro-frontend platform has <strong>dual auth systems</strong> &mdash; modern OAuth for new routes, legacy session cookies for iframe routes</li>
+          <li><strong>12 database schemas</strong> across services, plus DynamoDB and Snowflake</li>
+          <li><strong>12 SNS topics</strong> and <strong>10 Kafka consumer topics</strong> with local table targets</li>
+          <li>A complete <strong>cross-repo platform architecture diagram</strong> &mdash; which services talk to which, through what protocols</li>
+        </ul>
+
+        <h2>Where the Graph Broke Down</h2>
+
+        <ul>
+          <li><strong>PHP support is broken</strong>. The PHP monolith had 52,000 nodes parsed, but detected flows were all in vendored TinyMCE JavaScript. Zero useful PHP application flows. Tree-sitter&rsquo;s PHP CALLS edge extraction produced near-zero results (22 edges in one PHP repo, 0 in another).</li>
+          <li><strong>No config/infrastructure awareness</strong>. Blind to Helm charts, Docker configs, CI/CD pipelines, environment variables. The graph lives entirely in source code ASTs.</li>
+          <li><strong>No semantic understanding</strong>. It knows <code>jwt</code> is a function. It doesn&rsquo;t know that function validates Okta tokens via OIDC.</li>
+          <li><strong>Massive output sizes</strong>. Architecture overviews for larger repos were 1-9 MB of JSON &mdash; too large for an LLM context window. I had to delegate to a summarization agent just to make them usable.</li>
+          <li><strong>No cross-repo awareness</strong>. Each repo is an isolated graph. Can&rsquo;t trace a call from the backend to the frontend.</li>
+        </ul>
+
+        <h2>When to Use Which</h2>
+
+        <div class="article-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Best Method</th>
+                <th>Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>&ldquo;What does this repo do?&rdquo;</td><td>Explorer</td><td>Business logic, APIs, features, purpose</td></tr>
+              <tr><td>&ldquo;How healthy is the architecture?&rdquo;</td><td>Graph</td><td>Coupling ratios, warnings, community boundaries</td></tr>
+              <tr><td>&ldquo;What tech stack?&rdquo;</td><td>Explorer</td><td>Versions, frameworks, packages</td></tr>
+              <tr><td>&ldquo;Where are the complexity hotspots?&rdquo;</td><td>Graph</td><td>Line counts, criticality scores, flow depths</td></tr>
+              <tr><td>&ldquo;What databases/services does it use?&rdquo;</td><td>Explorer</td><td>Config parsing, connection strings, env vars</td></tr>
+              <tr><td>&ldquo;Which execution paths are most critical?&rdquo;</td><td>Graph</td><td>Flow criticality scoring</td></tr>
+              <tr><td>&ldquo;Is this change safe?&rdquo; (blast radius)</td><td>Graph</td><td>Impact radius, affected flows, affected communities</td></tr>
+              <tr><td>&ldquo;Onboard a new engineer&rdquo;</td><td>Explorer</td><td>Full context &mdash; what, why, how, where</td></tr>
+              <tr><td>&ldquo;Prioritize refactoring targets&rdquo;</td><td>Graph</td><td>Coupling ratios + warning counts = data-driven priorities</td></tr>
+              <tr><td>&ldquo;Full architecture review&rdquo;</td><td><strong>Both</strong></td><td>Graph for structure + Explorer for semantics</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>The Optimal Strategy</h2>
+
+        <p>Neither method alone gives you the full picture. The best approach I found:</p>
+
+<pre><code>Step 1: Graph first (30s, ~30K tokens, ~$0.18)
+  &rarr; Structural baseline: community map, coupling ratios, flows, hotspots
+  &rarr; Identify which repos need deep exploration and where to focus
+
+Step 2: Targeted exploration (5m, ~933K tokens, ~$3.80)
+  &rarr; Pre-load graph findings as context for each explorer agent
+  &rarr; "This repo has 77 coupling warnings — find what's causing them"
+  &rarr; Skip repos with 0 cross-community edges (confirmed dead)
+
+Step 3: Synthesize
+  &rarr; Merge structural precision with semantic richness</code></pre>
+
+        <p>The graph tells you WHERE to look. Exploration tells you WHAT&rsquo;s there. Together they&rsquo;re stronger than either alone.</p>
+
+        <h2>My Verdict</h2>
+
+        <p>code-review-graph is a <strong>precision tool for structural analysis</strong> &mdash; not a general-purpose context replacement. It genuinely shines at architectural health metrics, complexity detection, and blast radius analysis. These are things traditional file-reading agents literally cannot do.</p>
+
+        <p>But it scored 35% vs 79% on a comprehensive comparison. It&rsquo;s blind to APIs, databases, messaging, infrastructure, auth flows, and business logic &mdash; which is most of what matters for daily development work.</p>
+
+        <p>I&rsquo;m keeping it on my machine for code reviews and refactoring prioritization. The blast radius and coupling ratio features alone justify the setup. But I wouldn&rsquo;t pitch it to a team as a productivity game-changer &mdash; it&rsquo;s a specialized tool with a specific sweet spot.</p>
+
+        <p><strong>Setup tip</strong>: If you&rsquo;re using any platform other than Claude Code (or even Claude Code via CLI), you&rsquo;ll hit the post-processing bug. After <code>code-review-graph build</code>, call <code>build_or_update_graph_tool(full_rebuild=True)</code> via the MCP server, or add the post-processing steps manually. Otherwise you&rsquo;ll get empty results for the most interesting features.</p>
+
+      </article>
+
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-content">
+        <div class="footer-social">
+          <a href="https://github.com/igagankalra" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/igagankalra/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:gagan.logic@gmail.com" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Gagan Kalra. All rights reserved.</p>
+        <p class="footer-chai">Built with HTML, CSS, and a cup of chai.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>
