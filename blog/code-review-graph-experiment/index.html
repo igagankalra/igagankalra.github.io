@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>code-review-graph vs Traditional AI Code Exploration — A 9-Repo Benchmark — Gagan Kalra</title>
+  <title>I Benchmarked a Code Knowledge Graph Against 9 Production Repos — Gagan Kalra</title>
 
   <meta name="description" content="I tested code-review-graph MCP server across 9 production repos (148K nodes, 670K edges) using an agentic AI workflow. Head-to-head comparison on 14 dimensions: token cost, architectural analysis, blast radius, and more.">
   <meta name="author" content="Gagan Kalra">
 
-  <meta property="og:title" content="code-review-graph vs Traditional AI Code Exploration — A 9-Repo Benchmark">
+  <meta property="og:title" content="I Benchmarked a Code Knowledge Graph Against 9 Production Repos">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://igagankalra.github.io/blog/code-review-graph-experiment/">
   <meta property="og:description" content="I tested code-review-graph MCP server across 9 production repos (148K nodes, 670K edges) using an agentic AI workflow. Head-to-head comparison on 14 dimensions: token cost, architectural analysis, blast radius, and more.">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="code-review-graph vs Traditional AI Code Exploration — A 9-Repo Benchmark">
+  <meta name="twitter:title" content="I Benchmarked a Code Knowledge Graph Against 9 Production Repos">
   <meta name="twitter:description" content="I tested code-review-graph MCP server across 9 production repos (148K nodes, 670K edges) using an agentic AI workflow.">
 
   <link rel="canonical" href="https://igagankalra.github.io/blog/code-review-graph-experiment/">
@@ -83,22 +83,10 @@
       <article class="article reveal">
 
         <header class="article-header">
-          <h2 class="article-title">code-review-graph vs Traditional AI Code Exploration &mdash; A 9-Repo Benchmark</h2>
+          <h2 class="article-title">I Benchmarked a Code Knowledge Graph Against 9 Production Repos</h2>
           <div class="article-meta">
             <span class="article-date">April 4, 2026</span>
             <span class="article-author">&middot; Gagan Kalra</span>
-          </div>
-          <div class="article-tags">
-            <span class="article-tag">ai-code-review</span>
-            <span class="article-tag">mcp-server</span>
-            <span class="article-tag">code-review-graph</span>
-            <span class="article-tag">ai-coding-tools</span>
-            <span class="article-tag">tree-sitter</span>
-            <span class="article-tag">llm-token-optimization</span>
-            <span class="article-tag">opencode</span>
-            <span class="article-tag">developer-productivity</span>
-            <span class="article-tag">static-analysis</span>
-            <span class="article-tag">agentic-workflow</span>
           </div>
         </header>
 
@@ -330,6 +318,19 @@ Step 3: Synthesize
         <p>I&rsquo;m keeping it on my machine for code reviews and refactoring prioritization. The blast radius and coupling ratio features alone justify the setup. But I wouldn&rsquo;t pitch it to a team as a productivity game-changer &mdash; it&rsquo;s a specialized tool with a specific sweet spot.</p>
 
         <p><strong>Setup tip</strong>: If you&rsquo;re using any platform other than Claude Code (or even Claude Code via CLI), you&rsquo;ll hit the post-processing bug. After <code>code-review-graph build</code>, call <code>build_or_update_graph_tool(full_rebuild=True)</code> via the MCP server, or add the post-processing steps manually. Otherwise you&rsquo;ll get empty results for the most interesting features.</p>
+
+        <div class="article-tags">
+          <span class="article-tag">ai-code-review</span>
+          <span class="article-tag">mcp-server</span>
+          <span class="article-tag">code-review-graph</span>
+          <span class="article-tag">ai-coding-tools</span>
+          <span class="article-tag">tree-sitter</span>
+          <span class="article-tag">llm-token-optimization</span>
+          <span class="article-tag">opencode</span>
+          <span class="article-tag">developer-productivity</span>
+          <span class="article-tag">static-analysis</span>
+          <span class="article-tag">agentic-workflow</span>
+        </div>
 
       </article>
 
