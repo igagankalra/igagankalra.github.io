@@ -695,6 +695,90 @@ p:last-child {
 }
 
 /* ==========================================================================
+   Page Header (inner pages)
+   ========================================================================== */
+
+.page-header {
+  margin-bottom: var(--space-xl);
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   Work List (projects page)
+   ========================================================================== */
+
+.work-list {
+  display: grid;
+  gap: 0;
+}
+
+.work-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--c-border);
+  font-size: 0.975rem;
+  color: var(--c-text-light);
+  line-height: 1.65;
+}
+
+.work-item:first-child {
+  padding-top: 0;
+}
+
+.work-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.work-role {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--c-text-main);
+}
+
+.work-separator {
+  color: var(--c-text-muted);
+  margin: 0 0.15rem;
+}
+
+.work-brief {
+  color: var(--c-text-light);
+}
+
+/* ==========================================================================
+   Blog Placeholder
+   ========================================================================== */
+
+.blog-placeholder {
+  padding: var(--space-3xl) 0;
+  text-align: center;
+}
+
+.blog-placeholder p {
+  font-size: 1.1rem;
+  color: var(--c-text-light);
+  line-height: 1.7;
+}
+
+.blog-placeholder a {
+  color: var(--c-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--c-primary-light);
+  text-decoration-thickness: 1.5px;
+  transition: text-decoration-color var(--duration-fast) ease;
+}
+
+.blog-placeholder a:hover {
+  text-decoration-color: var(--c-primary);
+}
+
+/* ==========================================================================
    Footer
    ========================================================================== */
 

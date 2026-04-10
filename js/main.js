@@ -44,44 +44,4 @@
       el.classList.add('visible');
     });
   }
-
-  var navLinks = document.querySelectorAll('.nav-list a[href^="#"]');
-
-  navLinks.forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      var href = this.getAttribute('href');
-      if (href === '#') return;
-
-      e.preventDefault();
-      var target = document.querySelector(href);
-      if (target) {
-        var offset = 80;
-        var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      }
-
-      navLinks.forEach(function (l) { l.classList.remove('active'); });
-      this.classList.add('active');
-    });
-  });
-
-  window.addEventListener('scroll', function () {
-    var sections = document.querySelectorAll('section[id]');
-    var scrollY = window.pageYOffset + 120;
-
-    sections.forEach(function (section) {
-      var top = section.offsetTop;
-      var height = section.offsetHeight;
-      var id = section.getAttribute('id');
-
-      if (scrollY >= top && scrollY < top + height) {
-        navLinks.forEach(function (link) {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { passive: true });
 })();
