@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://igagankalra.github.io/sitemap.xml
+Sitemap: https://gagankalra.dev/sitemap.xml
